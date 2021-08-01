@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+  <context:property-placeholder ignore-resource-not-found="true"
+                                ignore-unresolvable="true"
+                                local-override="true"
+                                location="classpath:camel/fabricgroup.properties"/>
+
+  <!-- Camel Context -->
+  <camelContext id="fabricgroup" xmlns="http://camel.apache.org/schema/spring" useMDCLogging="true">
+
+    <propertyPlaceholder id="fabricgroup-properties" ignoreMissingLocation="true" location="classpath:camel/fabricgroup.properties"/>
+
+    <routeContextRef ref="fabricgroup-route-context"/>
+
+    <!-- Input File Endpoint -->
+    <endpoint id="inputFileChannel" uri="file:${input.file.path}"/>
+
+  </camelContext>
+
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
+
+  <bean id="loanProcessor" class="com.fabricgroup.test.processor.LoanProcessor"/>
+
+</beans>

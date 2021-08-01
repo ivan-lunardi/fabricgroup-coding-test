@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+  <!-- Fabric Group Route Context -->
+  <routeContext id="fabricgroup-route-context" xmlns="http://camel.apache.org/schema/spring">
+
+    <route id="readAndProcessInputFile" autoStartup="true">
+      <from uri="ref:inputFileChannel"/>
+      <log loggingLevel="DEBUG" message="Start processing ${file:name}" logName="fabricgroup-test"/>
+      <process ref="loanProcessor"/>
+      <log loggingLevel="DEBUG" message="Finish processing ${file:name}" logName="fabricgroup-test"/>
+
+      <onException>
+        <exception>java.lang.Exception</exception>
+        <handled><constant>true</constant></handled>
+      </onException>
+    </route>
+
+  </routeContext>
+
+</beans>

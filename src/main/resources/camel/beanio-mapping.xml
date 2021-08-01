@@ -1,0 +1,35 @@
+<beanio xmlns="http://www.beanio.org/2012/03" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03/mapping.xsd">
+
+  <stream name="inputFileStream" format="delimited">
+    <parser>
+      <property name="delimiter" value=" "/>
+    </parser>
+
+    <record name="loan" class="com.fabricgroup.test.data.Loan" minOccurs="1">
+      <field name="recordType" literal="LOAN" rid="true"/>
+      <field name="bankName"/>
+      <field name="borrower"/>
+      <field name="principal"/>
+      <field name="terms"/>
+      <field name="interestRate"/>
+    </record>
+
+    <record name="payment" class="com.fabricgroup.test.data.Payment">
+      <field name="recordType" literal="PAYMENT" rid="true"/>
+      <field name="bankName"/>
+      <field name="borrower"/>
+      <field name="lumpSumAmount"/>
+      <field name="emiNo"/>
+    </record>
+
+    <record name="balance" class="com.fabricgroup.test.data.Balance">
+      <field name="recordType" literal="BALANCE" rid="true"/>
+      <field name="bankName"/>
+      <field name="borrower"/>
+      <field name="emiNo"/>
+    </record>
+  </stream>
+
+</beanio>
